@@ -19,23 +19,11 @@
 ; plot(random_walk(200))
 ; plot(random_walk(200))
 
+
 #| Simple indexed plotting. |#
 
-#;(plot <a-sequence>)
+(require "plot.rkt")
 
-(module R racket (provide plot)
-  
-  (require (rename-in plot [plot plot′])
-           (for-syntax syntax/parse))
-  
-  (define (index a-sequence)
-    (in-values-sequence (in-parallel (in-naturals) a-sequence)))
-
-  (define-syntax plot
-    (syntax-parser
-      [(_ a-sequence) #'(plot′ (points (index a-sequence))
-                               #:x-label "Index"
-                               #:y-label (substring (~v 'a-sequence) 1))])))
 
 #| Simple time series library. |#
 
@@ -52,7 +40,7 @@
 
 #| Use the libraries. |#
 
-(require 'R 'Series)
+(require 'Series)
 
 ; Plot three random walks:
 
